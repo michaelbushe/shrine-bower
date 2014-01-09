@@ -58,6 +58,7 @@
 **/
 
 function $A(iterable) {
+	console.log("prototype.array.$A");
   if (!iterable) return [];
   // Safari <2.0.4 crashes when accessing property of a node list with property accessor.
   // It nevertheless works fine with `in` operator, which is why we use it here
@@ -67,41 +68,6 @@ function $A(iterable) {
   return results;
 }
 
-/** section: Language, related to: Array
- *  $w(String) -> Array
- *  
- *  Splits a string into an [[Array]], treating all whitespace as delimiters. Equivalent
- *  to Ruby's `%w{foo bar}` or Perl's `qw(foo bar)`.
- *  
- *  This is one of those life-savers for people who just hate commas in literal arrays :-)
- *  
- *  ### Examples
- *  
- *      $w('apples bananas kiwis')
- *      // -> ['apples', 'bananas', 'kiwis']
- *  
- *  This can slightly shorten code when writing simple iterations:
- *  
- *      $w('apples bananas kiwis').each(function(fruit){
- *        var message = 'I like ' + fruit
- *        // do something with the message
- *      })
- *  
- *  This also becomes sweet when combined with [[Element]] functions:
- *  
- *      $w('ads navbar funkyLinks').each(Element.hide);
-**/
-
-function $w(string) {
-  if (!Object.isString(string)) return [];
-  string = string.strip();
-  return string ? string.split(/\s+/) : [];
-}
-
-/** alias of: $A
- *  Array.from(iterable) -> Array
-**/
-Array.from = $A;
 
 /** section: Language
  * class Array
@@ -190,6 +156,8 @@ Array.from = $A;
       _each = arrayProto.forEach; // use native browser JS 1.6 implementation if available
 
   function each(iterator, context) {
+  		console.log("prototype.array.each");
+
     for (var i = 0, length = this.length >>> 0; i < length; i++) {
       if (i in this) iterator.call(context, this[i], i, this);
     }
@@ -210,6 +178,8 @@ Array.from = $A;
    *      // -> []
   **/
   function clear() {
+  		console.log("prototype.array.clear");
+
     this.length = 0;
     return this;
   }
@@ -220,6 +190,8 @@ Array.from = $A;
    *  Returns the array's first item (e.g., `array[0]`).
   **/
   function first() {
+  		console.log("prototype.array.first");
+
     return this[0];
   }
 
@@ -229,6 +201,8 @@ Array.from = $A;
    *  Returns the array's last item (e.g., `array[array.length - 1]`).
   **/
   function last() {
+  		console.log("prototype.array.last");
+
     return this[this.length - 1];
   }
 
@@ -245,6 +219,8 @@ Array.from = $A;
    *      // copy -> ['A', 'B', 'C'];
   **/
   function compact() {
+  		console.log("prototype.array.compact");
+
     return this.select(function(value) {
       return value != null;
     });
@@ -268,7 +244,11 @@ Array.from = $A;
    *      // b -> ['frank', 'bob', 'lisa', 'jill', 'tom', 'sally']
   **/
   function flatten() {
+  		console.log("prototype.array.flatten");
+
     return this.inject([], function(array, value) {
+    		console.log("prototype.array.flatten-Inner");
+
       if (Object.isArray(value))
         return array.concat(value.flatten());
       array.push(value);
@@ -292,6 +272,8 @@ Array.from = $A;
    *      // -> [3, 5]
   **/
   function without() {
+  		console.log("prototype.array.without");
+
     var values = slice.call(arguments, 0);
     return this.select(function(value) {
       return !values.include(value);
@@ -319,6 +301,8 @@ Array.from = $A;
    *      // nums -> [20, 1, 6, 5, 3]
   **/
   function reverse(inline) {
+  	console.log("prototype.array.inline");
+
     return (inline === false ? this.toArray() : this)._reverse();
   }
 
@@ -342,7 +326,11 @@ Array.from = $A;
    *      // -> ['A', 'a'] (because String comparison is case-sensitive)
   **/
   function uniq(sorted) {
+  	  	console.log("prototype.array.uniq");
+
     return this.inject([], function(array, value, index) {
+    	  	console.log("prototype.array.uniq in");
+
       if (0 == index || (sorted ? array.last() != value : !array.include(value)))
         array.push(value);
       return array;
@@ -357,7 +345,11 @@ Array.from = $A;
    *  given arrays.
   **/
   function intersect(array) {
+  	  	console.log("prototype.array.intercest");
+
     return this.uniq().findAll(function(item) {
+    	  	console.log("prototype.array.intersect in");
+
       return array.indexOf(item) !== -1;
     });
   }
@@ -372,6 +364,8 @@ Array.from = $A;
    *  Returns a duplicate of the array, leaving the original array intact.
   **/
   function clone() {
+  	  	console.log("prototype.array.clone");
+
     return slice.call(this, 0);
   }
 
@@ -384,6 +378,8 @@ Array.from = $A;
    *  which avoids array cloning and uses the array's native length property.
   **/
   function size() {
+  	  	console.log("prototype.array.size");
+
     return this.length;
   }
 
@@ -398,6 +394,8 @@ Array.from = $A;
    *      // -> "['Apples', [object Object], 3, 34]"
   **/
   function inspect() {
+  	  	console.log("prototype.array.inspect");
+
     return '[' + this.map(Object.inspect).join(', ') + ']';
   }
 
@@ -429,6 +427,8 @@ Array.from = $A;
    *      // -> -1 (not found, 1 !== '1')
   **/
   function indexOf(item, i) {
+  	  	console.log("prototype.array.inedexOf");
+
     if (this == null) throw new TypeError();
     
     var array = Object(this), length = array.length >>> 0;
@@ -474,6 +474,8 @@ Array.from = $A;
    *  information.
   **/
   function lastIndexOf(item, i) {
+  	  	console.log("prototype.array.lastIndexOf");
+
     if (this == null) throw new TypeError();
     
     var array = Object(this), length = array.length >>> 0;
@@ -510,6 +512,8 @@ Array.from = $A;
   // Used instead of the broken version of Array#concat in some versions of
   // Opera. Made to be ES5-compliant.
   function concat(_) {
+  	  	console.log("prototype.array.concat");
+
     var array = [], items = slice.call(arguments, 0), item, n = 0;
     items.unshift(this);
     for (var i = 0, length = items.length; i < length; i++) {
@@ -543,7 +547,11 @@ Array.from = $A;
   // but that's an acceptable trade-off.
   
   function wrapNative(method) {
+  	  	console.log("prototype.array.wrapNative");
+
     return function() {
+    	  	console.log("prototype.array.wrapNative");
+
       if (arguments.length === 0) {
         // No iterator was given. Instead of throwing a `TypeError`, use
         // `Prototype.K` as the default iterator.
@@ -586,6 +594,8 @@ Array.from = $A;
    *  information.
   **/
   function map(iterator) {
+  	  	console.log("prototype.array.map");
+
     if (this == null) throw new TypeError();
     iterator = iterator || Prototype.K;
 
@@ -623,6 +633,8 @@ Array.from = $A;
    *  information.
   **/
   function filter(iterator) {
+  	  	console.log("prototype.array.filter");
+
     if (this == null || !Object.isFunction(iterator))
       throw new TypeError();
     
@@ -664,6 +676,8 @@ Array.from = $A;
    *  information.
   **/
   function some(iterator) {
+  	  	console.log("prototype.array.some");
+
     if (this == null) throw new TypeError();
     iterator = iterator || Prototype.K;
     var context = arguments[1];
@@ -701,7 +715,10 @@ Array.from = $A;
    *  information.
    * 
   **/
+
   function every(iterator) {
+  	  	console.log("prototype.array.every");
+
     if (this == null) throw new TypeError();
     iterator = iterator || Prototype.K;
     var context = arguments[1];
@@ -715,7 +732,7 @@ Array.from = $A;
       
     return true;
   }
-  
+
   if (arrayProto.every) {
     var every = wrapNative(Array.prototype.every);
   }
@@ -735,15 +752,17 @@ Array.from = $A;
   if (!arrayProto.reduce) {
     var inject = Enumerable.inject;
   }
+       /* 
 
   Object.extend(arrayProto, Enumerable);
 
   if (!arrayProto._reverse)
     arrayProto._reverse = arrayProto.reverse;
+*/
 
+/*
   Object.extend(arrayProto, {
     _each:     _each,
-    
     map:       map,
     collect:   map,
     select:    filter,
@@ -769,6 +788,7 @@ Array.from = $A;
     size:      size,
     inspect:   inspect
   });
+*/
 
   // fix for opera
   var CONCAT_ARGUMENTS_BUGGY = (function() {
@@ -780,4 +800,5 @@ Array.from = $A;
   // Use native browser JS 1.6 implementations if available.
   if (!arrayProto.indexOf) arrayProto.indexOf = indexOf;
   if (!arrayProto.lastIndexOf) arrayProto.lastIndexOf = lastIndexOf;
+
 })();
