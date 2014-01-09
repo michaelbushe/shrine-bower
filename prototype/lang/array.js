@@ -759,9 +759,9 @@ function $A(iterable) {
   if (!arrayProto._reverse)
     arrayProto._reverse = arrayProto.reverse;
 */
+/*
 
   Object.extend(arrayProto, {
-/*
     _each:     _each,
     map:       map,
     collect:   map,
@@ -785,10 +785,10 @@ function $A(iterable) {
     toArray:   clone,
     size:      size,
     inspect:   inspect
-*/
     inject:    inject,
     uniq:      uniq,
   });
+*/
 
   // fix for opera
   var CONCAT_ARGUMENTS_BUGGY = (function() {
