@@ -760,8 +760,8 @@ function $A(iterable) {
     arrayProto._reverse = arrayProto.reverse;
 */
 
-/*
   Object.extend(arrayProto, {
+/*
     _each:     _each,
     map:       map,
     collect:   map,
@@ -772,7 +772,6 @@ function $A(iterable) {
     any:       some,
     every:     every,
     all:       every,
-    inject:    inject,
     
     clear:     clear,
     first:     first,
@@ -781,14 +780,15 @@ function $A(iterable) {
     flatten:   flatten,
     without:   without,
     reverse:   reverse,
-    uniq:      uniq,
     intersect: intersect,
     clone:     clone,
     toArray:   clone,
     size:      size,
     inspect:   inspect
-  });
 */
+    inject:    inject,
+    uniq:      uniq,
+  });
 
   // fix for opera
   var CONCAT_ARGUMENTS_BUGGY = (function() {
