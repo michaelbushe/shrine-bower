@@ -1,7 +1,7 @@
 angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
 
 .constant('accordionConfig', {
-  closeOthers: true
+  closeOthers: false
 })
 
 .controller('AccordionController', ['$scope', '$attrs', 'accordionConfig', function ($scope, $attrs, accordionConfig) {
@@ -73,14 +73,19 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
       accordionCtrl.addGroup(scope);
 
       scope.isOpen = false;
+
       
       if ( attrs.isOpen ) {
         getIsOpen = $parse(attrs.isOpen);
         setIsOpen = getIsOpen.assign;
 
         scope.$watch(
-          function watchIsOpen() { return getIsOpen(scope.$parent); },
-          function updateOpen(value) { scope.isOpen = value; }
+          function watchIsOpen() {
+              return getIsOpen(scope.$parent);
+          },
+          function updateOpen(value) {
+              scope.isOpen = value;
+          }
         );
         
         scope.isOpen = getIsOpen ? getIsOpen(scope.$parent) : false;
