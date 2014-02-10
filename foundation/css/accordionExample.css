@@ -1,0 +1,56 @@
+/**
+ *  These are styles specific to the foundation accordion, intent is to override foundation styles to make them
+ *  look more like Seth's design.
+ */
+
+/** styles for accordion heading **/
+.accordion-heading-expanded, .accordion-heading{
+    display: block;
+    cursor: pointer;
+    position: relative;
+    margin-top: 2px;
+    padding: .5em .5em .5em .7em;
+    min-height: 0; /* support: IE7 */
+    color: #FFF !important;
+    font: 14px Verdana, Geneva, sans-serif !important;
+    font-size: 110%;
+    padding-left: 2.2em;
+    border-bottom: 1px solid #000;
+}
+
+/** default heading **/
+.accordion-heading{
+    background: #677CAB !important;
+}
+/** expanded heading **/
+.accordion-heading-expanded{
+    background: #960 !important;
+}
+
+/** create accordion arrow in css **/
+.arrow-south {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #000;
+}
+
+.arrow-east, .accordion-heading:hover .arrow-east {
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+
+}
+
+.arrow-east{
+    border-left: 4px solid #444;
+}
+.accordion-heading:hover .arrow-east{
+    border-left: 4px solid #000;
+}
+
+.arrow-south, .arrow-east{
+    width: 0;
+    height: 0;
+    position: absolute;
+    top:12px;
+    left:15px;
+}

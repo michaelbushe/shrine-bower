@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../css/foundation.css"/>
+    <link rel="stylesheet" href="../../css/accordionExample.css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
+    <script src="../../src/mm-foundation-tpls-0.0.0.js"></script>
+    <script src="../../src/accordion/accordionExample.js"></script>
+    <title></title>
+</head>
+<body ng-app="accordionExample">
+<div ng-controller="AccordionExampleCtrl">
+    <label class="checkbox">
+        <input type="checkbox" ng-model="oneAtATime">
+        Open only one at a time
+    </label>
+
+    <accordion close-others="oneAtATime">
+        <accordion-group heading="Static Header, initially expanded" is-open="true">
+            This content is straight in the template.
+        </accordion-group>
+        <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+            {{group.content}}
+        </accordion-group>
+        <accordion-group heading="Dynamic Body Content">
+            <p>The body of the accordion group grows to fit the contents</p>
+            <button class="button small" ng-click="addItem()">Add Item</button>
+            <div ng-repeat="item in items">{{item}}</div>
+        </accordion-group>
+        <accordion-group heading="Final Tab">
+            This is just some content.
+        </accordion-group>
+    </accordion>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<dd>
+  <a ng-click="isOpen = !isOpen" accordion-transclude="heading"
+     ng-attr-class="{{isOpen && 'accordion-heading-expanded'||'accordion-heading'}}">
+     <div ng-attr-class="{{isOpen && 'arrow-south'||'arrow-east'}}"></div>
+     <div style="position: absolute; top:7px; left:30px">{{heading}}</div>
+  </a>
+  <div class="content i2b2-content" ng-style="isOpen ? {display: 'block'} : {display:'none'}" ng-transclude></div>
+</dd>
